@@ -15,31 +15,36 @@ namespace Service
             this.passwordServic = passwordServic;
         }
         //userRepositories repository=new userRepositories();
-        public User? GetUserById(int Id)
+
+        public async Task<IEnumerable<User>> GetUsers()
         {
-            return repository.GetUserById(Id);
+            return await repository.GetUsers();
+        }
+        public async Task<User?> GetUserById(int Id)
+        {
+            return await repository.GetUserById(Id);
         }
 
-        public User CreateUser(User user)
+        public async Task<User> CreateUser(User user)
         {
             
             password password = passwordServic.PasswordHardness(user.Password);
             if (password.Level >= 3)
             {
-                return repository.CreateUser(user);
+                return await repository.CreateUser(user);
             }
             return null;
         }
 
 
-        public User login(User loggedUser)
+        public async Task<User> login(User loggedUser)
         {
-            return repository.login(loggedUser);
+            return await repository.login(loggedUser);
         }
 
         // PUT api/<UsersController>/5
 
-        public void UpdateUser(int id, User loggedUser)
+        public async Task UpdateUser(int id, User loggedUser)
         {
             passwordServic passwordServic = new passwordServic();
             password password = passwordServic.PasswordHardness(loggedUser.Password);
@@ -47,7 +52,7 @@ namespace Service
             {
                 throw new Exception("passworn us too weak");
             }
-            repository.UpdateUser(id, loggedUser);
+            await repository.UpdateUser(id, loggedUser);
 
         }
 
