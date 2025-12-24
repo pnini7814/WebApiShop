@@ -32,7 +32,7 @@ namespace WebApiShop.Controllers
         public async Task<ActionResult<User>> Get(int id)
         {
             User user=await Services.GetUserById(id);
-            if (user.Id==id)
+            if (user.UserId==id)
                         return Ok(user);
             return NotFound();
 
@@ -58,7 +58,7 @@ namespace WebApiShop.Controllers
         {
             User? user = await Services.login(loggedUser);
             if (user!=null)
-                        return CreatedAtAction(nameof(Get), new { user.Id }, user);
+                        return CreatedAtAction(nameof(Get), new { user.UserId }, user);
             return NoContent();
         }
 
