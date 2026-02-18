@@ -48,9 +48,9 @@ namespace WebApiShop.Controllers
             //return BadRequest("password in low")
             
             UserDTO _service= await Services.CreateUser(user);
-            if (_service == null)
-                return BadRequest();
-            return Ok(user);
+            if (_service != null)
+                return CreatedAtAction(nameof(Get), new { Id=_service.UserId }, _service);
+            return NoContent();
 
         }
 
@@ -75,11 +75,8 @@ namespace WebApiShop.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }
-
-            
+            }      
         }
-
         // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)

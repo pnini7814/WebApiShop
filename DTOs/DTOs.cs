@@ -8,4 +8,5 @@ namespace DTOs
     public record OrderItemDTO(int OrderItemId,int ProductId, int OrderId, int Quantity);
     public record CategoryDTO(int CategoryId, string CategoryName);
     public record LoginUserDTO([EmailAddress][Required]string UserName, [Required]string Password);
+
 }
