@@ -6,5 +6,8 @@ namespace Repository
     {
         Task<Product?> GetProductById(int Id);
         Task<IEnumerable<Product>> GetProducts();
+        Task<IEnumerable<Product>> GetProducts(int[]? categoryId, decimal maxPrice, decimal minPrice);
+
+
     }
 }

@@ -6,5 +6,6 @@ namespace Service
     {
         Task<ProductDTO?> GetProductById(int Id);
         Task<IEnumerable<ProductDTO>> GetProducts();
+        Task<IEnumerable<ProductDTO>> GetProducts(int[]? categoryId, decimal maxPrice, decimal minPrice);
     }
 }

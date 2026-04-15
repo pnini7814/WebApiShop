@@ -14,11 +14,7 @@ namespace WebApiShop.Controllers
         {
             this.Services = services;
         }
-        [HttpGet]
-        public async Task<IEnumerable<ProductDTO>> Get()
-        {
-            return await Services.GetProducts();
-        }
+ 
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> Get(int id)
@@ -27,7 +23,13 @@ namespace WebApiShop.Controllers
             if (Product.ProductId == id)
                 return Ok(Product);
             return NotFound();
+        }
 
+        [HttpGet]
+        public async Task<IEnumerable<ProductDTO>> Get([FromQuery] int[]? categoryId, [FromQuery] decimal maxPrice, [FromQuery] decimal minPrice)
+        {
+
+            return (IEnumerable<ProductDTO>)await Services.GetProducts(categoryId, maxPrice, minPrice);
         }
 
     }

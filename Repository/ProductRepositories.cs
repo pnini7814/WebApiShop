@@ -26,5 +26,17 @@ namespace Repository
         {
             return await _webApiShopDBContext.Products.FindAsync(Id);
         }
+        public async Task<IEnumerable<Product>> GetProducts(int[]? categoryId, decimal maxPrice, decimal minPrice)
+        {
+            var query = _webApiShopDBContext.Products.Where(product =>
+            (minPrice == 0) ? (true) : (product.Price >= minPrice) &&
+            (maxPrice == 0) ? (true) : (product.Price <= maxPrice) &&
+            (categoryId.Length == 0) ? (true) : (categoryId.Contains(product.ProductId)))
+            .OrderBy(product => product.Price);
+
+            var total = await query.CountAsync();
+
+            return await query.ToListAsync();
+        }
     }
 }

@@ -7,7 +7,7 @@ builder.Services.AddScoped < IuserRepositories, userRepositories>();
 builder.Services.AddScoped<IuserServices, userServices>();
 builder.Services.AddScoped<IpasswordServic ,passwordServic>();
 builder.Services.AddDbContext<WebApiShopDBContext>(options => options.UseSqlServer(
-    "Data Source = srv2\\pupils; Initial Catalog = WebApiShopDB; Integrated Security = True; Trust Server Certificate=True; Pooling=false"));
+    "Data Source = DESKTOP-H0UFRS7; Initial Catalog = WebApiShop; Integrated Security = True; Trust Server Certificate=True; Pooling=false"));
 
 
 // Add services to the container.
