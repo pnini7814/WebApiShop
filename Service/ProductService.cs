@@ -19,12 +19,7 @@ namespace Service
             this.repository = repository;
             this.mapper = mapper;
         }
-        public async Task<IEnumerable<ProductDTO>> GetProducts()
-        {
-            IEnumerable<Product> Products = await repository.GetProducts();
-            return mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(Products);
 
-        }
         public async Task<ProductDTO?> GetProductById(int Id)
         {
             Product product = await repository.GetProductById(Id);
@@ -35,5 +30,14 @@ namespace Service
             IEnumerable<Product> products = await repository.GetProducts(categoryId, maxPrice, minPrice);
             return mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
         }
+        public async Task<ProductDTO> CreateProducts(ProductDTO product)
+        {
+            Product Product1 = mapper.Map<ProductDTO, Product>(product);
+            Product1 = await repository.CreateProducts(Product1);
+            return mapper.Map<Product, ProductDTO>(Product1);
+        }
+
+
+   
     }
 }

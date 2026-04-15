@@ -15,7 +15,8 @@ namespace Service
         { 
             CreateMap<User,UserDTO>().ReverseMap();
             CreateMap<User, LoginUserDTO>().ReverseMap();
-            CreateMap<Product,ProductDTO>().ReverseMap();
+            CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<ProductDTO,Product>().ReverseMap().ForCtorParam("CategoryName",opt=>opt.MapFrom(src=>src.Category.CategoryName));
             CreateMap<Order,OrderDTO>().ReverseMap();
             CreateMap<OrderItem,OrderItemDTO>().ReverseMap();   
             CreateMap<Category,CategoryDTO>().ReverseMap();

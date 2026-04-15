@@ -30,9 +30,9 @@ namespace WebApiShop.Controllers
         public async Task<ActionResult<OrderDTO>> Post([FromBody] OrderDTO order)
         {
             OrderDTO _service = await Services.CreateOrder(order);
-            if (_service == null)
-                return BadRequest();
-            return Ok(order);
+            if (_service != null)
+                return CreatedAtAction(nameof(Get), new { Id = _service.OrderId }, _service);
+            return NoContent();
         }
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] OrderDTO order)

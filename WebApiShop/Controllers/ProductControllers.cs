@@ -7,10 +7,10 @@ namespace WebApiShop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductControllers : ControllerBase
+    public class ProductController : ControllerBase
     {
         IProductService Services;
-        public ProductControllers(IProductService services)
+        public ProductController(IProductService services)
         {
             this.Services = services;
         }
@@ -31,6 +31,20 @@ namespace WebApiShop.Controllers
 
             return (IEnumerable<ProductDTO>)await Services.GetProducts(categoryId, maxPrice, minPrice);
         }
+        [HttpPost]
+        public async Task<ActionResult<ProductDTO>> Post([FromBody] ProductDTO product)
+        {
+            ProductDTO _service = await Services.CreateProducts(product);
+            if (_service == null)
+                return NoContent();
+            return CreatedAtAction(nameof(Get), new { Id = _service.ProductId }, _service);
+        }
+
+       
+
+
+
+
 
     }
 }

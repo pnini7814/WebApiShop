@@ -4,10 +4,19 @@ using Service;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped < IuserRepositories, userRepositories>();
+builder.Services.AddScoped <IProductRepositories, ProductRepositories>();
+builder.Services.AddScoped<IOrderRepositories, OrderRepositories>();
+builder.Services.AddScoped<IcategoryRepositories, categoryRepositories>();
+
 builder.Services.AddScoped<IuserServices, userServices>();
 builder.Services.AddScoped<IpasswordServic ,passwordServic>();
+builder.Services.AddScoped<IOrderServices , OrderServices>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+
 builder.Services.AddDbContext<WebApiShopDBContext>(options => options.UseSqlServer(
-    "Data Source = DESKTOP-H0UFRS7; Initial Catalog = WebApiShop; Integrated Security = True; Trust Server Certificate=True; Pooling=false"));
+    builder.Configuration.GetConnectionString("school")));
 
 
 // Add services to the container.
