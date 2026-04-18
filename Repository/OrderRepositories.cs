@@ -10,7 +10,7 @@ namespace Repository
 {
     public class OrderRepositories : IOrderRepositories
     {
-        WebApiShopDBContext _webApiShopDBContext;
+        private readonly WebApiShopDBContext _webApiShopDBContext;
         public OrderRepositories(WebApiShopDBContext webApiShopDBContext)
         {
             _webApiShopDBContext = webApiShopDBContext;

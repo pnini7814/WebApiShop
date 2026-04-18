@@ -8,8 +8,6 @@ namespace DTOs
     public record OrderItemDTO(int OrderItemId,int ProductId, int OrderId, int Quantity);
     public record CategoryDTO(int CategoryId, string CategoryName);
     public record LoginUserDTO([EmailAddress][Required]string UserName, [Required]string Password);
-    public record PageResponsDTO(IEnumerable<ProductDTO>items,int Page,int size ,int total,int hasNext,int hasPrevious );
-
-
+    public record PageResponseDTO(IEnumerable<ProductDTO>items,int Page,int size ,int total,bool hasNext,bool hasPrevious );
 
 }

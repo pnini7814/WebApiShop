@@ -25,19 +25,27 @@ namespace Service
             Product product = await repository.GetProductById(Id);
             return mapper.Map<Product, ProductDTO>(product);
         }
-        public async Task<IEnumerable<ProductDTO>> GetProducts(int[]? categoryId, decimal maxPrice, decimal minPrice)
+        public async Task<PageResponseDTO>
+            GetProducts(int position, int skip, int[]? categoryId,
+            decimal maxPrice, decimal minPrice, string des)
         {
-            IEnumerable<Product> products = await repository.GetProducts(categoryId, maxPrice, minPrice);
-            return mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+            var (items, total) = await repository.GetProducts(position, skip, categoryId, maxPrice, minPrice, des);
+            List<ProductDTO> data = mapper.Map<List<Product>, List<ProductDTO>>(items);
+            int numOfPage = total / skip;
+            if (total % skip != 0)
+                numOfPage++;
+            PageResponseDTO pageResponse = new(data,position, skip, total, position > 1, position < numOfPage);
+            return pageResponse;
         }
         public async Task<ProductDTO> CreateProducts(ProductDTO product)
         {
+
             Product Product1 = mapper.Map<ProductDTO, Product>(product);
             Product1 = await repository.CreateProducts(Product1);
             return mapper.Map<Product, ProductDTO>(Product1);
         }
 
 
-   
+
     }
 }

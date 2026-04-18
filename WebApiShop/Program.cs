@@ -1,6 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using NLog.Web;
 using Repository;
 using Service;
+using WebApiShop;
+using WebApiShop.middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped < IuserRepositories, userRepositories>();
@@ -20,8 +26,8 @@ builder.Services.AddDbContext<WebApiShopDBContext>(options => options.UseSqlServ
 
 
 // Add services to the container.
-
-builder.Services.AddControllers();
+builder.Host.UseNLog();
+//builder.Services.AddOpenApi();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddEndpointsApiExplorer();
@@ -37,6 +43,10 @@ if (app.Environment.IsDevelopment())
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseerrorMiddleware();
+
+app.UseratingMiddleware();
 
 app.UseStaticFiles();
 

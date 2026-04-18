@@ -15,10 +15,12 @@ namespace WebApiShop.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        IuserServices Services;
-        public UsersController(IuserServices services)
+        private readonly IuserServices Services;
+        private readonly ILogger<UsersController> logger;
+        public UsersController(IuserServices services, ILogger<UsersController> logger)
         {
             this.Services = services;
+            this.logger = logger;
         }
         // GET: api/<UsersController>
         [HttpGet]
@@ -58,18 +60,21 @@ namespace WebApiShop.Controllers
         public async Task<ActionResult<UserDTO>> Post1([FromBody] LoginUserDTO loggedUser)
         {
             UserDTO? user = await Services.login(loggedUser);
-            if (user!=null)
-                        return CreatedAtAction(nameof(Get), new { user.UserId }, user);
+            if (user != null)
+            {
+                return CreatedAtAction(nameof(Get), new { user.UserId }, user);
+                logger.LogInformation($"login id:{user.UserId} userName:{user.UserName}");
+            }
             return NoContent();
         }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] UserDTO loggedUser)
+        public async Task<ActionResult> Put(int id, [FromBody] UserDTO updateUser)
         {
             try
             {
-                await Services.UpdateUser(id, loggedUser);
+                await Services.UpdateUser(id, updateUser);
                 return Ok();
             }
             catch (Exception ex)

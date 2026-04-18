@@ -12,9 +12,9 @@ namespace Service
 {
     public class CategoryService : ICategoryService
     {
-        IcategoryRepositories _repository;
+        private readonly IcategoryRepositories _repository;
 
-        IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public CategoryService(IcategoryRepositories repository, IMapper mapper)
         {

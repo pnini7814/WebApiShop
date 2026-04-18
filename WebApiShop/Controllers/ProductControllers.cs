@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -26,10 +27,17 @@ namespace WebApiShop.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ProductDTO>> Get([FromQuery] int[]? categoryId, [FromQuery] decimal maxPrice, [FromQuery] decimal minPrice)
+        public async Task<ActionResult< IEnumerable<PageResponseDTO>>> Get
+            ([FromQuery] int[]? categoryId, decimal maxPrice,  string? des,
+            decimal minPrice,int position=1,int skip=8)
         {
+            PageResponseDTO pageResponse=await Services.GetProducts
+                (position,skip,categoryId,maxPrice,minPrice,des);
+            if (pageResponse.items.Count() > 0)
+                return Ok(pageResponse);
+            return NoContent();
 
-            return (IEnumerable<ProductDTO>)await Services.GetProducts(categoryId, maxPrice, minPrice);
+           
         }
         [HttpPost]
         public async Task<ActionResult<ProductDTO>> Post([FromBody] ProductDTO product)
@@ -39,13 +47,6 @@ namespace WebApiShop.Controllers
                 return NoContent();
             return CreatedAtAction(nameof(Get), new { Id = _service.ProductId }, _service);
         }
-
-       
-
-
-
-
-
     }
 }
 

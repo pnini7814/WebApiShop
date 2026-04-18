@@ -7,7 +7,7 @@ namespace Repository
 {
     public class userRepositories : IuserRepositories
     {
-        WebApiShopDBContext _webApiShopDBContext;
+        private readonly WebApiShopDBContext _webApiShopDBContext;
         //const string _filePath = "M:\\New folder - Copy\\WebApiShop\\WebApiShop\\Users.txt";
 
         public userRepositories(WebApiShopDBContext webApiShopDBContext)

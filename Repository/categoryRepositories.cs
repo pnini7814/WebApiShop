@@ -10,7 +10,7 @@ namespace Repository
 {
     public class categoryRepositories : IcategoryRepositories
     {
-        WebApiShopDBContext _webApiShopDBContext;
+        private readonly WebApiShopDBContext _webApiShopDBContext;
         public categoryRepositories(WebApiShopDBContext webApiShopDBContext)
         {
             _webApiShopDBContext = webApiShopDBContext;
