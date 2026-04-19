@@ -35,7 +35,7 @@ namespace WebApiShop.middlewares
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class ErrorMiddlewareExtensions
     {
-        public static IApplicationBuilder UseerrorMiddleware(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseErrorMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<ErrorMiddleware>();
         }

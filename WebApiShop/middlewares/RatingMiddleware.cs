@@ -33,7 +33,7 @@ namespace WebApiShop.middlewares
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class RatingMiddlewareExtensions
     {
-        public static IApplicationBuilder UseratingMiddleware(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseRatingMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<RatingMiddleware>();
         }

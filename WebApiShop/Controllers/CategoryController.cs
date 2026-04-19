@@ -5,6 +5,8 @@ using Service;
 
 namespace WebApiShop.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoryController
     {
         ICategoryService _categoriesService;

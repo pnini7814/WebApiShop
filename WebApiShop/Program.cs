@@ -9,6 +9,8 @@ using WebApiShop;
 using WebApiShop.middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLogging();
 builder.Services.AddScoped < IuserRepositories, userRepositories>();
 builder.Services.AddScoped <IProductRepositories, ProductRepositories>();
 builder.Services.AddScoped<IOrderRepositories, OrderRepositories>();
@@ -19,10 +21,11 @@ builder.Services.AddScoped<IpasswordServic ,passwordServic>();
 builder.Services.AddScoped<IOrderServices , OrderServices>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-
+builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IratingRepository, ratingRepository>();
 
 builder.Services.AddDbContext<WebApiShopDBContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("school")));
+    builder.Configuration.GetConnectionString("home")));
 
 
 // Add services to the container.
@@ -32,6 +35,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -44,9 +49,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseerrorMiddleware();
+app.UseRatingMiddleware();
 
-app.UseratingMiddleware();
+app.UseErrorMiddleware();
 
 app.UseStaticFiles();
 

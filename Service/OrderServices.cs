@@ -18,7 +18,7 @@ namespace Service
         ILogger logger;
         IMapper mapper;
         public OrderServices(IOrderRepositories repository, IMapper mapper,IProductRepositories productRepositories,
-            ILogger logger)
+            ILogger<OrderServices> logger)
         {
 
             this.repository = repository;
